@@ -141,7 +141,7 @@ cv::Mat camera::takePicture()
             return matRet;
         }
         {
-            std::lock_guard<std::recursive_mutex> lck(_mtxMat) ;
+            std::lock_guard<std::recursive_mutex> lck(_mtxMat);
             _mat = matRet ;
         }
         _timePicture = steady_clock::now() ;
@@ -175,10 +175,22 @@ int camera::setExposure(float fValue)
 
 void camera::setRoi(int witdh,int height,int offsetX,int offsetY)
 {
-    MV_CC_SetIntValue(m_hDevHandle,"Width",witdh);
-    MV_CC_SetIntValue(m_hDevHandle,"Height",height);
-    MV_CC_SetIntValue(m_hDevHandle,"OffsetX",offsetX);
-    MV_CC_SetIntValue(m_hDevHandle,"OffsetY",offsetY);
+    if(witdh > 0)
+    {
+        MV_CC_SetIntValue(m_hDevHandle,"Width",witdh);
+    }
+    if(height > 0)
+    {
+        MV_CC_SetIntValue(m_hDevHandle,"Height",height);
+    }
+    if(offsetX > 0)
+    {
+        MV_CC_SetIntValue(m_hDevHandle,"OffsetX",offsetX);
+    }
+    if(offsetY > 0)
+    {
+        MV_CC_SetIntValue(m_hDevHandle,"OffsetY",offsetY);
+    }
 }
 
 int camera::EnumDevices(unsigned int nTLayerType, MV_CC_DEVICE_INFO_LIST* pstDevList)

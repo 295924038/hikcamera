@@ -27,6 +27,8 @@ private slots:
 
     void showPicture();
 
+    void on_save_clicked();
+
 private:
     Ui::MainWindow *ui;
     Singleton<camera> _camera ;

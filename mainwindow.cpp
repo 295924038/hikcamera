@@ -135,5 +135,27 @@ void MainWindow::on_cb_autoTakePictures_stateChanged(int arg1)
 
 void MainWindow::on_takePicture_clicked()
 {
-    saveImg(_camera_ptr->takePicture()) ;
+    saveImg(_camera_ptr->takePicture());
+}
+
+void MainWindow::on_save_clicked()
+{
+    auto widthValue = ui->widthValue->text().toInt();
+    auto heightValue = ui->heightValue->text().toInt();
+    auto offsetX = ui->offsetXValue->text().toInt();
+    auto offsetY = ui->offsetYValue->text().toInt();
+
+    auto exposureTime = ui->exposureValue->text().toInt();
+    auto gain = ui->gainValue->text().toInt();
+
+    _camera_ptr->setRoi(widthValue,heightValue,offsetX,offsetY);
+
+    if(exposureTime > 0)
+    {
+        _camera_ptr->setExposure(exposureTime);
+    }
+    if(gain > 0)
+    {
+        _camera_ptr->setGain(gain);
+    }
 }
